@@ -20,16 +20,19 @@ public class EmployeeEntity {
 
     private Long employeeSalary;
 
+    private boolean deleted = false;
+
     public EmployeeEntity() {
     }
 
-    public EmployeeEntity(Long employeeId, String employeeName, String employeeContact, String employeeDepartment, int employeeAge, Long employeeSalary) {
+    public EmployeeEntity(Long employeeId, String employeeName, String employeeContact, String employeeDepartment, int employeeAge, Long employeeSalary, boolean deleted) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeeContact = employeeContact;
         this.employeeDepartment = employeeDepartment;
         this.employeeAge = employeeAge;
         this.employeeSalary = employeeSalary;
+        this.deleted = deleted;
     }
 
     public Long getEmployeeId() {
@@ -78,5 +81,13 @@ public class EmployeeEntity {
 
     public void setEmployeeSalary(Long employeeSalary) {
         this.employeeSalary = employeeSalary;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }
