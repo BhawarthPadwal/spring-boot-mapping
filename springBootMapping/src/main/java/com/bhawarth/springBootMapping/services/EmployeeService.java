@@ -1,8 +1,10 @@
 package com.bhawarth.springBootMapping.services;
 
+import com.bhawarth.springBootMapping.annotations.LogExecutionTime;
 import com.bhawarth.springBootMapping.entities.EmployeeEntity;
 import com.bhawarth.springBootMapping.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,18 +20,21 @@ public class EmployeeService {
         return employeeRepository.save(employeeEntity);
     }
 
+//    @Cacheable(value = "employees", key = "#emp")
+    @LogExecutionTime
+    @Cacheable(value = "employees")
     public List<EmployeeEntity> getAllEmployee() {
         return employeeRepository.findAll();
     }
-
+    @LogExecutionTime
     public List<EmployeeEntity> findEmployeesByIds(List<Long> ids) {
         return employeeRepository.findAllById(ids);
     }
-
+    @LogExecutionTime
     public Optional<EmployeeEntity> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
     }
-
+    @LogExecutionTime
     public EmployeeEntity updateEmployee(Long id, EmployeeEntity employeeEntity) {
         EmployeeEntity employeeEntity1 = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
         if (employeeEntity1 != null) {

@@ -1,8 +1,10 @@
 package com.bhawarth.springBootMapping.controllers;
 
 import com.bhawarth.springBootMapping.entities.EmployeeEntity;
+import com.bhawarth.springBootMapping.services.CacheInspectionService;
 import com.bhawarth.springBootMapping.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private CacheInspectionService cacheInspectionService;
 
     // Get all employees
     @GetMapping
@@ -76,4 +81,8 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping("/cache-data")
+    public void getCache() {
+        cacheInspectionService.printCacheContents("employees");
+    }
 }
